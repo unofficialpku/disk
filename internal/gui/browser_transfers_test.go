@@ -19,8 +19,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare/mockserver"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare/mockserver"
 )
 
 func uploadRequest(t *testing.T, s *server, token, relative string, data []byte, overwrite bool) *httptest.ResponseRecorder {

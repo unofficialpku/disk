@@ -1,10 +1,10 @@
 {
   "app": {
-    "name": "PKU 网盘",
+    "name": "PKUDisk",
     "desktop": "桌面客户端",
     "connecting": "正在连接…",
     "expired": "请重新打开界面",
-    "expiredHint": "请从托盘打开 PKU 网盘，或运行 pkudisk-fuse gui 获取新的登录链接。",
+    "expiredHint": "请从托盘打开 PKUDisk，或运行 pkudisk gui 获取新的登录链接。",
     "stopped": "服务已退出，请关闭本窗口",
     "quit": "退出桌面服务",
     "quitHint": "停止桌面服务。请先完成传输并卸载所有挂载。",
@@ -14,7 +14,7 @@
     "quitMobile": "退出",
     "quitMobileHint": "关闭 App 并停止本机服务。请先完成传输任务。",
     "stoppedMobile": "服务未运行，请退出应用",
-    "expiredMobileHint": "请退出并重新打开 PKUDisk App。",
+    "expiredMobileHint": "请退出并重新打开 PKUDisk。",
     "stoppedUnknown": "服务未运行，请重新打开界面。",
     "expiredUnknownHint": "请关闭并重新打开界面。"
   },
@@ -86,7 +86,7 @@
     "description": "连接校园账号，随时切换各账号的文档库。",
     "add": "添加账号",
     "login": "登录",
-    "loginTitle": "连接 PKU 网盘",
+    "loginTitle": "连接 PKUDisk",
     "loginHint": "使用北大统一身份认证账号登录。凭据将私密保存在本机。",
     "username": "校园用户名",
     "password": "密码",

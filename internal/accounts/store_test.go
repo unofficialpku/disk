@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/auth"
+	"github.com/unofficialpku/disk/internal/localfile"
 )
 
 func testStore(t *testing.T) *Store {

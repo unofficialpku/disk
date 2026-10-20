@@ -3,8 +3,8 @@ package vfs
 import (
 	"encoding/json"
 	"errors"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/localfile"
 	"os"
 	"path/filepath"
 	"sort"

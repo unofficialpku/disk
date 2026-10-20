@@ -1,3 +1,5 @@
+import org.gradle.api.file.DirectoryProperty
+
 plugins {
     id 'com.android.application'
 }
@@ -14,8 +16,8 @@ android {
         applicationId 'su.zzi.pkudiskfuse'
         minSdk 29
         targetSdk 36
-        versionCode 4
-        versionName '0.5.2'
+        versionCode 5
+        versionName '0.6.0'
     }
 
     compileOptions {
@@ -64,3 +66,24 @@ tasks.register('copyBrandAssets', Copy) {
     into layout.buildDirectory.dir('generated/brandRes/drawable-nodpi')
 }
 tasks.named('preBuild').configure { dependsOn 'buildGo', 'copyBrandAssets' }
+
+// Carry redistribution notices inside the one APK distributed to users.
+apply from: rootProject.file('../scripts/licenses.gradle')
+tasks.register('collectSourceLicenses', Exec) {
+    workingDir rootProject.projectDir
+    commandLine 'sh', '../scripts/licenses.sh', '--sources-only'
+}
+abstract class LicenseAssets extends Sync {
+    @OutputDirectory abstract DirectoryProperty getOutputDirectory()
+}
+def licenseAssets = tasks.register('prepareReleaseLicenses', LicenseAssets) {
+    dependsOn 'collectSourceLicenses', 'exportRuntimeLicenses'
+    from(rootProject.file('../build/licenses')) { into 'licenses' }
+    filePermissions { unix('0644') }
+    dirPermissions { unix('0755') }
+    outputDirectory.set(layout.buildDirectory.dir('generated/licenseAssets'))
+    into outputDirectory
+}
+androidComponents.onVariants(androidComponents.selector().withBuildType('release')) { variant ->
+    variant.sources.assets.addGeneratedSourceDirectory(licenseAssets) { it.outputDirectory }
+}

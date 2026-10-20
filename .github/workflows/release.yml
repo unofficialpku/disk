@@ -44,10 +44,10 @@ jobs:
           args: release --clean --skip=publish
       - name: Verify version and publish
         run: |
-          test "$(dist/pkudisk-fuse_linux_amd64_v1/pkudisk-fuse version)" = "pkudisk-fuse $RELEASE_TAG"
+          test "$(dist/pkudisk_linux_amd64_v1/pkudisk version)" = "pkudisk $RELEASE_TAG"
           flags=(--latest)
           if [[ "$RELEASE_TAG" == *-* ]]; then flags=(--prerelease --latest=false); fi
           gh release create "$RELEASE_TAG" --verify-tag --title "$RELEASE_TAG" \
             --notes-file "docs/releases/$RELEASE_TAG.md" "${flags[@]}" \
             dist/*.tar.gz dist/*.zip dist/checksums.txt
-          GOPROXY=https://proxy.golang.org go list -m "github.com/thezzisu/pkudisk-fuse@$RELEASE_TAG"
+          GOPROXY=https://proxy.golang.org go list -m "github.com/unofficialpku/disk@$RELEASE_TAG"

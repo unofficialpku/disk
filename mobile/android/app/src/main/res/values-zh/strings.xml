@@ -1,5 +1,5 @@
 <resources>
-    <string name="intro">正在启动 PKUDisk App…</string>
+    <string name="intro">正在启动 PKUDisk…</string>
     <string name="startup_retry">重试</string>
     <string name="startup_service_error">本机服务未能启动，请重试。</string>
     <string name="startup_browser_error">应用界面未能加载，请重试。</string>

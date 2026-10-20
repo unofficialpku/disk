@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/diagnostic"
 )
 
 // A directory listing already supplies revision, size and timestamps. Reuse

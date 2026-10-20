@@ -14,8 +14,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/localfile"
 )
 
 // MountAccount owns one remote namespace. IDs include both its saved name and
@@ -33,7 +33,7 @@ type AccountBackend struct {
 
 func NewAccountBackend(accounts []MountAccount) (*AccountBackend, error) {
 	if len(accounts) == 0 {
-		return nil, errors.New("no saved accounts; run 'pkudisk-fuse account add' first")
+		return nil, errors.New("no saved accounts; run 'pkudisk account add' first")
 	}
 	b := &AccountBackend{accounts: make(map[string]MountAccount)}
 	names := make(map[string]bool)

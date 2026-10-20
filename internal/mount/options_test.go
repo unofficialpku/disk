@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/vfs"
 )
 
 func TestMountByteSizes(t *testing.T) {

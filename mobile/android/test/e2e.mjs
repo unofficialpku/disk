@@ -164,7 +164,7 @@ try {
   })
   assert.equal(headers.status, 200)
   assert.equal(headers.data.tray, false)
-  assert.equal(headers.data.version, '0.5.1')
+  assert.equal(headers.data.version, '0.6.0')
   await until(async () => (await taskNotifications()).length === 0, 'idle foreground has no persistent notification')
   assert.deepEqual(headers.data.flags, { isMobile: true, canMount: false, canBrowseLocalFS: false })
   const localAccess = await page.evaluate(async () => {
@@ -405,7 +405,7 @@ try {
   await page.getByRole('main').waitFor()
   await readyWindow()
   // Quit through the actual mobile UI, then verify Android removes the task.
-  assert.equal(await page.title(), 'PKUDisk App')
+  assert.equal(await page.title(), 'PKUDisk')
   await page.getByRole('button', { name: /^(Open sidebar|打开侧边栏)$/ }).click()
   assert.equal(await page.getByRole('button', { name: /^(Quit desktop service|退出桌面服务)$/ }).count(), 0)
   await page.getByRole('button', { name: /^(Quit|退出)$/, exact: true }).click()

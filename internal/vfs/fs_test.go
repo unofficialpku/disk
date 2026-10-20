@@ -21,19 +21,19 @@ import (
 	"time"
 
 	"github.com/hanwen/go-fuse/v2/fs"
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/diagnostic"
 	"golang.org/x/sys/unix"
 )
 
 func mountTest(t *testing.T, b Backend, options Options) (string, *FileSystem) {
 	t.Helper()
-	if runtime.GOOS == "darwin" && os.Getenv("PKUDISK_FUSE_REQUIRE_KERNEL") != "1" {
-		t.Skip("set PKUDISK_FUSE_REQUIRE_KERNEL=1 on a Mac with the macFUSE kernel extension enabled")
+	if runtime.GOOS == "darwin" && os.Getenv("PKUDISK_REQUIRE_KERNEL") != "1" {
+		t.Skip("set PKUDISK_REQUIRE_KERNEL=1 on a Mac with the macFUSE kernel extension enabled")
 	}
 	if runtime.GOOS == "linux" {
 		device, err := os.OpenFile("/dev/fuse", os.O_RDWR, 0)
 		if err != nil {
-			if os.Getenv("PKUDISK_FUSE_REQUIRE_KERNEL") == "1" {
+			if os.Getenv("PKUDISK_REQUIRE_KERNEL") == "1" {
 				t.Fatal(err)
 			}
 			t.Skip("kernel FUSE unavailable:", err)
@@ -55,7 +55,7 @@ func mountTest(t *testing.T, b Backend, options Options) (string, *FileSystem) {
 	server, err := fs.Mount(point, filesystem.Root(), &fs.Options{EntryTimeout: &zero, AttrTimeout: &zero, NegativeTimeout: &zero})
 	if err != nil {
 		filesystem.Close()
-		if os.Getenv("PKUDISK_FUSE_REQUIRE_KERNEL") == "1" {
+		if os.Getenv("PKUDISK_REQUIRE_KERNEL") == "1" {
 			t.Fatal(err)
 		}
 		t.Skip("FUSE mount unavailable:", err)

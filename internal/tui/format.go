@@ -1,6 +1,6 @@
 package tui
 
-import "github.com/thezzisu/pkudisk-fuse/internal/display"
+import "github.com/unofficialpku/disk/internal/display"
 
 type sizeFormat = display.SizeFormat
 

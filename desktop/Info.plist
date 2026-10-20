@@ -2,13 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleIdentifier</key><string>io.github.thezzisu.pkudisk-fuse</string>
-    <key>CFBundleName</key><string>PKU NetDisk</string>
-    <key>CFBundleDisplayName</key><string>PKU NetDisk</string>
+    <key>CFBundleIdentifier</key><string>io.github.unofficialpku.disk</string>
+    <key>CFBundleName</key><string>PKUDisk</string>
+    <key>CFBundleDisplayName</key><string>PKUDisk</string>
     <key>CFBundleExecutable</key><string>launch</string>
     <key>CFBundleIconFile</key><string>icon.icns</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleVersion</key><string>1</string>
+    <key>CFBundleVersion</key><string>0.6.0</string>
+    <key>CFBundleShortVersionString</key><string>0.6.0</string>
     <key>LSUIElement</key><true/>
     <key>NSHighResolutionCapable</key><true/>
 </dict>

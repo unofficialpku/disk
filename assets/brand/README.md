@@ -7,7 +7,7 @@ Regenerate with Pillow 12.3.0:
 ```sh
 python scripts/generate-icons.py
 go run github.com/tc-hib/go-winres@v0.3.3 make \
-  --in desktop/winres.json --out cmd/pkudisk-fuse/rsrc --arch amd64,arm64
+  --in desktop/winres.json --out cmd/pkudisk/rsrc --arch amd64,arm64
 ```
 
 The checked-in `.syso` files embed the application icon in both Windows builds

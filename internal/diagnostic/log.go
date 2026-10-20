@@ -25,7 +25,7 @@ type Logger struct {
 type operationKey struct{}
 
 func New(out io.Writer) *Logger {
-	return &Logger{log: log.New(out, "pkudisk-fuse: ", log.LstdFlags|log.Lmicroseconds)}
+	return &Logger{log: log.New(out, "pkudisk: ", log.LstdFlags|log.Lmicroseconds)}
 }
 
 // A nil logger is disabled. Keep the original context and avoid allocating a

@@ -47,10 +47,11 @@ jobs:
           go test -c -o "$RUNNER_TEMP/gui.test" ./internal/gui
           node scripts/test-gui-workflows.mjs "$RUNNER_TEMP/gui.test"
           node scripts/test-gui-ux.mjs "$RUNNER_TEMP/gui.test"
-          go build -trimpath -o "$RUNNER_TEMP/pkudisk-fuse" ./cmd/pkudisk-fuse
-          node scripts/test-gui-browser.mjs "$RUNNER_TEMP/pkudisk-fuse"
-          node scripts/test-gui-daemon.mjs "$RUNNER_TEMP/pkudisk-fuse"
-          node scripts/test-gui-hmr.mjs "$RUNNER_TEMP/pkudisk-fuse"
+          node scripts/test-gui-density.mjs "$RUNNER_TEMP/gui.test"
+          go build -trimpath -o "$RUNNER_TEMP/pkudisk" ./cmd/pkudisk
+          node scripts/test-gui-browser.mjs "$RUNNER_TEMP/pkudisk"
+          node scripts/test-gui-daemon.mjs "$RUNNER_TEMP/pkudisk"
+          node scripts/test-gui-hmr.mjs "$RUNNER_TEMP/pkudisk"
   test:
     name: Test (${{ matrix.os }})
     strategy:
@@ -86,7 +87,7 @@ jobs:
           sudo apt-get install -y fuse3 dbus-daemon
           if [ ! -e /dev/fuse ]; then sudo mknod /dev/fuse c 10 229; fi
           sudo chmod 666 /dev/fuse
-          echo "PKUDISK_FUSE_REQUIRE_KERNEL=1" >> "$GITHUB_ENV"
+          echo "PKUDISK_REQUIRE_KERNEL=1" >> "$GITHUB_ENV"
       - name: Enable Windows WinFsp tests
         if: runner.os == 'Windows'
         shell: pwsh
@@ -96,7 +97,7 @@ jobs:
           $process = Start-Process msiexec.exe -ArgumentList '/i', "`"$msi`"", '/qn', '/norestart', 'ADDLOCAL=ALL' -Wait -PassThru
           if ($process.ExitCode -notin @(0, 3010)) { throw "WinFsp installer exit code $($process.ExitCode)" }
           'CGO_ENABLED=0' >> $env:GITHUB_ENV
-          'PKUDISK_FUSE_REQUIRE_KERNEL=1' >> $env:GITHUB_ENV
+          'PKUDISK_REQUIRE_KERNEL=1' >> $env:GITHUB_ENV
       - name: Test
         run: go test -count=1 ${{ matrix.flags }} ./...
       - name: Test shared mobile core
@@ -108,6 +109,6 @@ jobs:
           for goos in linux darwin windows; do
             for goarch in amd64 arm64; do
               CGO_ENABLED=0 GOOS="$goos" GOARCH="$goarch" \
-                go build -trimpath -o "$RUNNER_TEMP/pkudisk-$goos-$goarch" ./cmd/pkudisk-fuse
+                go build -trimpath -o "$RUNNER_TEMP/pkudisk-$goos-$goarch" ./cmd/pkudisk
             done
           done

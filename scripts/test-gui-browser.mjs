@@ -106,7 +106,7 @@ try {
   await page.getByRole("main", { name: "我的账号", exact: true }).waitFor();
   assert.equal(await page.getByRole("button", { name: "添加账号", exact: true }).count(), 1);
   await page.getByRole("button", { name: "添加账号", exact: true }).click();
-  await page.getByRole("dialog", { name: "连接 PKU 网盘", exact: true }).waitFor();
+  await page.getByRole("dialog", { name: "连接 PKUDisk", exact: true }).waitFor();
   await page.keyboard.press("Escape");
   await page.getByRole("dialog").waitFor({ state: "hidden" });
   if (screenshots) await takeScreenshot(page, screenshots, "gui-empty-accounts");
@@ -169,7 +169,7 @@ try {
   await reopened.getByRole("dialog").getByRole("button", { name: "确认", exact: true }).click();
   await reopened.getByRole("dialog", { name: "服务已退出，请关闭本窗口", exact: true }).waitFor();
   assert.equal((await exited)[0], 0);
-  assert.equal(await stat(join(config, "pkudisk-fuse", "gui", "instance.json")).then(() => true, () => false), false);
+  assert.equal(await stat(join(config, "pkudisk", "gui", "instance.json")).then(() => true, () => false), false);
   assert.equal(output.includes("ticket="), false);
   assert.deepEqual(errors, []);
   console.log("Browser smoke test passed: login, fragment cleanup, reload, replay, CSRF, activation, residency, exit.");

@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/transfer"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/transfer"
 )
 
 type browserDownload struct {

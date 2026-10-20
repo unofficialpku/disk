@@ -3,10 +3,10 @@ package gui
 import (
 	"context"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/accounts"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
-	"github.com/thezzisu/pkudisk-fuse/internal/session"
+	"github.com/unofficialpku/disk/internal/accounts"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/auth"
+	"github.com/unofficialpku/disk/internal/session"
 )
 
 // NewConnector adapts browser login input to the same account/session core used

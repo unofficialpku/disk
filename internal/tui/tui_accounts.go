@@ -3,8 +3,8 @@ package tui
 import (
 	"errors"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/transfer"
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/transfer"
+	"github.com/unofficialpku/disk/internal/vfs"
 )
 
 type tuiTarget struct {

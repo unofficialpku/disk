@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/diagnostic"
 )
 
 type mountLog struct {

@@ -1,8 +1,8 @@
-module github.com/thezzisu/pkudisk-fuse/mobile
+module github.com/unofficialpku/disk/mobile
 
 go 1.26.9
 
-require github.com/thezzisu/pkudisk-fuse v0.0.0
+require github.com/unofficialpku/disk v0.0.0
 
 require (
 	github.com/adrg/xdg v0.5.3 // indirect
@@ -17,7 +17,7 @@ require (
 	golang.org/x/tools v0.52.0 // indirect
 )
 
-replace github.com/thezzisu/pkudisk-fuse => ..
+replace github.com/unofficialpku/disk => ..
 
 tool (
 	golang.org/x/mobile/cmd/gobind

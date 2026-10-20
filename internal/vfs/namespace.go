@@ -2,7 +2,7 @@ package vfs
 
 import (
 	"context"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare"
 	"syscall"
 )
 

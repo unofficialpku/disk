@@ -23,15 +23,15 @@ The executable checks mount dependencies before opening a saved account or askin
 Linux and macOS:
 
 ```sh
-mkdir -p ~/PKUNetDisk
-pkudisk-fuse mount ~/PKUNetDisk
+mkdir -p ~/PKUDisk
+pkudisk mount ~/PKUDisk
 ```
 
 Windows, from PowerShell or Command Prompt, with an unused drive letter:
 
 ```powershell
-pkudisk-fuse.exe account add
-pkudisk-fuse.exe mount P:
+pkudisk.exe account add
+pkudisk.exe mount P:
 ```
 
 An empty directory can also be used as a Windows mountpoint. Ctrl-C unmounts the filesystem. Other mount flags, including `--root`, `--read-only`, `--cache-limit` and `--io-timeout`, have the same meaning on each platform.
@@ -63,9 +63,9 @@ Remote paths always use forward slashes, including on Windows. Local paths use t
 
 | Platform | Default account file | Default mount-cache parent |
 | --- | --- | --- |
-| Linux | `~/.config/pkudisk-fuse/accounts.json` | `~/.cache/pkudisk-fuse` |
-| macOS | `~/Library/Application Support/pkudisk-fuse/accounts.json` | `~/Library/Caches/pkudisk-fuse` |
-| Windows | `%APPDATA%\pkudisk-fuse\accounts.json` | `%LOCALAPPDATA%\pkudisk-fuse` |
+| Linux | `~/.config/pkudisk/accounts.json` | `~/.cache/pkudisk` |
+| macOS | `~/Library/Application Support/pkudisk/accounts.json` | `~/Library/Caches/pkudisk` |
+| Windows | `%APPDATA%\pkudisk\accounts.json` | `%LOCALAPPDATA%\pkudisk` |
 
 `XDG_CONFIG_HOME` and `XDG_CACHE_HOME` override the parent directories on all three platforms. Files remain bound to the selected saved account and server.
 
@@ -79,4 +79,4 @@ CI uses one native test job each for Linux, macOS and Windows. Formatting, depen
 
 Windows regressions replay 6,648 directory metadata/open/close probes with expired listings, verify lazy enumeration snapshots and external rename/replacement, and exercise native `CreateFile` attribute-only directory opens. Shared tests cover coalesced directory/metadata requests, cancellation, invalidation during an in-flight listing, and cached reads or local writes during a blocked metadata refresh.
 
-The macOS hosted runner tests the native CLI/storage code and compiles the go-fuse adapter. Kernel-extension approval is unavailable on the hosted runner, so macFUSE mounting needs acceptance on a Mac with the driver enabled. Run `PKUDISK_FUSE_REQUIRE_KERNEL=1 go test -race ./internal/vfs` on that Mac to require the actual mount tests; the default macOS suite skips them.
+The macOS hosted runner tests the native CLI/storage code and compiles the go-fuse adapter. Kernel-extension approval is unavailable on the hosted runner, so macFUSE mounting needs acceptance on a Mac with the driver enabled. Run `PKUDISK_REQUIRE_KERNEL=1 go test -race ./internal/vfs` on that Mac to require the actual mount tests; the default macOS suite skips them.

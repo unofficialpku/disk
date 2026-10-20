@@ -30,7 +30,7 @@ func New(open, quit func()) (*Tray, error) {
 	menu.Add("Open", open)
 	menu.AddSeparator()
 	menu.Add("Exit", quit)
-	tray.SetAppName("PKU NetDisk").SetTooltip("PKU NetDisk").
+	tray.SetAppName("PKUDisk").SetTooltip("PKUDisk").
 		SetIcon(iconPNG).SetTemplateIcon(templatePNG).SetMenu(menu)
 	tray.OnClick(open)
 	tray.Show()

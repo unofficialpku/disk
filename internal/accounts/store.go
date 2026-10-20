@@ -15,8 +15,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/auth"
+	"github.com/unofficialpku/disk/internal/localfile"
 )
 
 var (
@@ -54,7 +54,7 @@ func Default() (*Store, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Store{Path: filepath.Join(dir, "pkudisk-fuse", "accounts.json")}, nil
+	return &Store{Path: filepath.Join(dir, "pkudisk", "accounts.json")}, nil
 }
 
 func ValidName(name string) bool {

@@ -14,8 +14,8 @@ import (
 
 	"github.com/hanwen/go-fuse/v2/fs"
 	"github.com/hanwen/go-fuse/v2/fuse"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/localfile"
+	"github.com/unofficialpku/disk/internal/vfs"
 )
 
 func Run(ctx context.Context, source *Source, opts Options, output io.Writer) error {
@@ -51,7 +51,7 @@ func Run(ctx context.Context, source *Source, opts Options, output io.Writer) er
 	if err != nil {
 		return err
 	}
-	options := &fs.Options{MountOptions: fuse.MountOptions{Name: "pkudisk-fuse", FsName: "PKU NetDisk", Debug: debug, DisableXAttrs: true, MaxWrite: 1 << 20}, EntryTimeout: &ttl, AttrTimeout: &ttl, NegativeTimeout: new(time.Duration)}
+	options := &fs.Options{MountOptions: fuse.MountOptions{Name: "pkudisk", FsName: "PKUDisk", Debug: debug, DisableXAttrs: true, MaxWrite: 1 << 20}, EntryTimeout: &ttl, AttrTimeout: &ttl, NegativeTimeout: new(time.Duration)}
 	if readOnly {
 		options.MountOptions.Options = []string{"ro"}
 	}
@@ -60,7 +60,7 @@ func Run(ctx context.Context, source *Source, opts Options, output io.Writer) er
 		filesystem.Close()
 		return fmt.Errorf("FUSE mount: %w", err)
 	}
-	fmt.Fprintf(output, "Mounted PKU NetDisk at %s; cache %s. Ctrl-C unmounts.\n", point, filesystem.CachePath())
+	fmt.Fprintf(output, "Mounted PKUDisk at %s; cache %s. Ctrl-C unmounts.\n", point, filesystem.CachePath())
 	if opts.Ready != nil {
 		opts.Ready()
 	}

@@ -1,10 +1,10 @@
 {
   "app": {
-    "name": "PKU NetDisk",
+    "name": "PKUDisk",
     "desktop": "Desktop client",
     "connecting": "Connecting…",
     "expired": "Open the interface again",
-    "expiredHint": "Open PKU NetDisk from the tray or run pkudisk-fuse gui to get a fresh sign-in link.",
+    "expiredHint": "Open PKUDisk from the tray or run pkudisk gui to get a fresh sign-in link.",
     "stopped": "The service has exited. Please close this window.",
     "quit": "Quit desktop service",
     "quitHint": "Stop the desktop service. Finish transfers and unmount filesystems first.",
@@ -14,7 +14,7 @@
     "quitMobile": "Quit",
     "quitMobileHint": "Close the app and stop its local service. Finish transfers first.",
     "stoppedMobile": "The service is not running. Please exit the app.",
-    "expiredMobileHint": "Exit and reopen PKUDisk App.",
+    "expiredMobileHint": "Exit and reopen PKUDisk.",
     "stoppedUnknown": "The service is not running. Please reopen the interface.",
     "expiredUnknownHint": "Close and reopen the interface."
   },
@@ -86,7 +86,7 @@
     "description": "Connect campus accounts and switch between their libraries.",
     "add": "Add account",
     "login": "Sign in",
-    "loginTitle": "Connect to PKU NetDisk",
+    "loginTitle": "Connect to PKUDisk",
     "loginHint": "Sign in with your PKU campus account. Credentials are saved privately on this computer.",
     "username": "Campus username",
     "password": "Password",

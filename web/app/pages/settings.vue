@@ -92,7 +92,7 @@ const {
           </div>
         </div>
         <UButton
-          to="https://github.com/thezzisu/pkudisk-fuse"
+          to="https://github.com/unofficialpku/disk"
           target="_blank"
           rel="noreferrer"
           icon="i-lucide-external-link"

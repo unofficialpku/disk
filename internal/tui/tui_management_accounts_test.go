@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/vfs"
 )
 
 func selectTUIEntry(t *testing.T, m *tuiModel, id string) {

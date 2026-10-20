@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare"
 )
 
 func generatedRead(_ context.Context, _ anyshare.Entry, data []byte, off int64) (int, error) {

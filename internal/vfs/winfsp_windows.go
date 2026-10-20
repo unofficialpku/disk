@@ -12,8 +12,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/localfile"
 	"github.com/winfsp/cgofuse/fuse"
 	"golang.org/x/sys/windows"
 )

@@ -1,6 +1,6 @@
 # Desktop GUI
 
-Run `pkudisk-fuse gui` to start a tray and open the local browser interface.
+Run `pkudisk gui` to start a tray and open the local browser interface.
 The Nuxt / Nuxt UI interface supports Chinese and English, light and dark
 themes, and the same netdisk operations as the CLI/TUI. Choose the language
 and theme in the toolbar or Settings. Saved accounts are shared with the CLI.
@@ -51,7 +51,7 @@ private log path, and returns. Use `gui --foreground` while developing or when
 Ctrl-C controlled lifetime is useful. Subsequent invocations open the existing
 instance and return. Desktop launchers keep their native application lifecycle.
 Closing a browser tab does not stop the service. Use the tray's **Exit**, the
-page's **退出桌面服务**, `pkudisk-fuse gui stop`, or Ctrl-C in `--foreground`
+page's **退出桌面服务**, `pkudisk gui stop`, or Ctrl-C in `--foreground`
 mode. Startup output includes the stop command. `gui stop` waits for shutdown
 and refuses to interrupt active login, transfer or mount work; it also succeeds
 when no GUI is running. An instance started with an older binary that lacks the
@@ -59,9 +59,9 @@ stop endpoint must be exited from the tray/page once before restarting.
 
 Background logs use mode 0600, outside the configuration directory:
 
-- Linux: `$XDG_STATE_HOME/pkudisk-fuse/logs/desktop.log`, defaulting to
-  `~/.local/state/pkudisk-fuse/logs/desktop.log`. Relative XDG paths are ignored.
-- macOS: `~/Library/Logs/pkudisk-fuse/desktop.log`.
+- Linux: `$XDG_STATE_HOME/pkudisk/logs/desktop.log`, defaulting to
+  `~/.local/state/pkudisk/logs/desktop.log`. Relative XDG paths are ignored.
+- macOS: `~/Library/Logs/pkudisk/desktop.log`.
 
 Existing log files are left in place. Reopening a running macOS app is handled
 through its LaunchServices reopen event.
@@ -144,12 +144,12 @@ argument for packaging an already cross-built executable.
 Linux:
 
 ```sh
-sh desktop/package.sh ./bin/pkudisk-fuse ./bin/desktop
+sh desktop/package.sh ./bin/pkudisk ./bin/desktop
 mkdir -p ~/.local/share/applications
-cp ./bin/desktop/pkudisk-fuse.desktop ~/.local/share/applications/
+cp ./bin/desktop/pkudisk.desktop ~/.local/share/applications/
 ```
 
-Use `./pkudisk-fuse` as the binary path when working in an extracted release.
+Use `./pkudisk` as the binary path when working in an extracted release.
 The generated desktop entry contains the binary and logo's absolute paths, including
 correct escaping for spaces and reserved characters. Regenerate the entry
 if the binary moves.
@@ -157,8 +157,8 @@ if the binary moves.
 macOS:
 
 ```sh
-sh desktop/package.sh ./bin/pkudisk-fuse ./bin/desktop
-open './bin/desktop/PKU NetDisk.app'
+sh desktop/package.sh ./bin/pkudisk ./bin/desktop
+open './bin/desktop/PKUDisk.app'
 ```
 
 The app bundles a copy of the same executable and a shell launcher that passes
@@ -166,7 +166,7 @@ The app bundles a copy of the same executable and a shell launcher that passes
 CLI commands, for example:
 
 ```sh
-'/Applications/PKU NetDisk.app/Contents/MacOS/pkudisk-fuse' version
+'/Applications/PKUDisk.app/Contents/MacOS/pkudisk' version
 ```
 
 The app includes the supplied PKU logo as its ICNS application icon. Windows
@@ -216,7 +216,7 @@ unsafe scripts. Credentials are not logged, printed
 to the terminal, or included in query strings.
 
 The GUI is single-instance per user configuration directory. Discovery state
-is below the existing configuration directory in `pkudisk-fuse/gui/`, using
+is below the existing configuration directory in `pkudisk/gui/`, using
 0700 directories / 0600 files on Unix and restricted ACLs on Windows. An OS
 process lock determines ownership; a stale file or PID cannot confer ownership.
 A separate control secret authenticates subsequent `gui` activations and is
@@ -253,7 +253,7 @@ HTTP server and embedded interface:
 ```sh
 PLAYWRIGHT_MODULE=/path/to/playwright/index.js \
 PLAYWRIGHT_CHROMIUM_EXECUTABLE=/path/to/chromium \
-node scripts/test-gui-browser.mjs ./bin/pkudisk-fuse ./.local/gui-screenshots
+node scripts/test-gui-browser.mjs ./bin/pkudisk ./.local/gui-screenshots
 ```
 
 It checks login, fragment removal, reload, replay rejection, cross-origin

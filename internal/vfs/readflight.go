@@ -5,8 +5,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/diagnostic"
 )
 
 func (r *readFlight) Write(data []byte) (int, error) {

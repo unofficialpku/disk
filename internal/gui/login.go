@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/accounts"
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
+	"github.com/unofficialpku/disk/internal/accounts"
+	"github.com/unofficialpku/disk/internal/auth"
 )
 
 type loginInfo struct {

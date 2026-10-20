@@ -122,7 +122,7 @@ func (s *server) api(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !s.tokens.authenticated(bearer(r)) {
-		http.Error(w, "open the interface from the tray or run pkudisk-fuse gui", http.StatusUnauthorized)
+		http.Error(w, "open the interface from the tray or run pkudisk gui", http.StatusUnauthorized)
 		return
 	}
 	if r.Method != http.MethodGet && r.Method != http.MethodHead && r.Header.Get("Origin") != s.origin {

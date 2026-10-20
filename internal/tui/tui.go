@@ -20,9 +20,9 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
 	"github.com/charmbracelet/x/ansi"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
-	"github.com/thezzisu/pkudisk-fuse/internal/transfer"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/localfile"
+	"github.com/unofficialpku/disk/internal/transfer"
 	"golang.org/x/term"
 )
 
@@ -634,7 +634,7 @@ func (m *tuiModel) View() tea.View {
 	accent := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("63"))
 	muted := lipgloss.NewStyle().Foreground(lipgloss.Color("245"))
 	account, server := m.accountContext()
-	header := ansi.Truncate(accent.Render("PKU NetDisk")+"  Account: "+tuiText(account), m.width-4, "…") + "\n" + muted.Render(ansi.Truncate(tuiText(server), m.width-4, "…")) + "\n" + ansi.Truncate("Remote: "+tuiText(m.location.path), m.width-4, "…") + "\n"
+	header := ansi.Truncate(accent.Render("PKUDisk")+"  Account: "+tuiText(account), m.width-4, "…") + "\n" + muted.Render(ansi.Truncate(tuiText(server), m.width-4, "…")) + "\n" + ansi.Truncate("Remote: "+tuiText(m.location.path), m.width-4, "…") + "\n"
 	var content string
 	switch m.mode {
 	case managementMode:

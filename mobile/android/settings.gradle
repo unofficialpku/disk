@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = 'pkudisk-fuse-android'
+rootProject.name = 'pkudisk-android'
 include ':app'

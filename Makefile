@@ -1,9 +1,10 @@
 GO ?= go
+VERSION ?= dev
 
 .PHONY: build ui ui-check test check clean
 build:
 	mkdir -p bin
-	$(GO) build -trimpath -o bin/pkudisk-fuse ./cmd/pkudisk-fuse
+	$(GO) build -trimpath -ldflags '-X main.version=$(VERSION)' -o bin/pkudisk ./cmd/pkudisk
 ui:
 	cd web && npm ci && npm run build
 ui-check:

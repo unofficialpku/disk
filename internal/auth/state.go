@@ -7,7 +7,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/diagnostic"
 )
 
 // State contains the raw AnyShare cookie values. It is sensitive and must only

@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare"
 )
 
 const readBlockSize int64 = 4 << 20

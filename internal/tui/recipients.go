@@ -5,7 +5,7 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"context"
 	"errors"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare"
 )
 
 type recipientItem struct{ anyshare.Recipient }

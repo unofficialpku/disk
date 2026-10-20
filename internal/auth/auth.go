@@ -21,7 +21,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/diagnostic"
 
 	"golang.org/x/net/html"
 )
@@ -151,7 +151,7 @@ func (s *Session) request(ctx context.Context, method, raw, ctype string, body i
 	if ctype != "" {
 		req.Header.Set("Content-Type", ctype)
 	}
-	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/155.0.0.0 Safari/537.36 pkudisk-fuse/1.0")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/155.0.0.0 Safari/537.36 pkudisk/1.0")
 	resp, err := s.http.Do(req)
 	if err != nil {
 		var ue *url.Error

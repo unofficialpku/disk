@@ -1,6 +1,6 @@
 # AnyShare protocol notes
 
-These notes describe the protocol boundary implemented by this repository. They are based on PKU NetDisk 7.0.6-3-281, including read-only inspection of its Debian package unpacked under `/tmp`, and live requests made against the service. They contain no account data or bearer tokens.
+These notes describe the protocol boundary implemented by this repository. They are based on the official Peking University NetDisk client 7.0.6-3-281, including read-only inspection of its Debian package unpacked under `/tmp`, and live requests made against the service. They contain no account data or bearer tokens.
 
 ## Session
 

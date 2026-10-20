@@ -21,11 +21,11 @@ func TestDesktopLogPathUsesStateOrNativeLogs(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		expected := filepath.Join(homeDir, ".local", "state", "pkudisk-fuse", "logs", "desktop.log")
+		expected := filepath.Join(homeDir, ".local", "state", "pkudisk", "logs", "desktop.log")
 		if runtime.GOOS == "darwin" {
-			expected = filepath.Join(homeDir, "Library", "Logs", "pkudisk-fuse", "desktop.log")
+			expected = filepath.Join(homeDir, "Library", "Logs", "pkudisk", "desktop.log")
 		} else if filepath.IsAbs(value) {
-			expected = filepath.Join(value, "pkudisk-fuse", "logs", "desktop.log")
+			expected = filepath.Join(value, "pkudisk", "logs", "desktop.log")
 		}
 		if path != expected {
 			t.Fatalf("XDG_STATE_HOME=%q: %q, want %q", value, path, expected)

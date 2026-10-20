@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/auth"
 )
 
 func TestAPIErrorCodesAreCanonicalAndKeepSharedErrorsImmutable(t *testing.T) {

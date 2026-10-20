@@ -8,8 +8,8 @@ import (
 )
 
 const PlatformHelp = "macOS requires macFUSE (https://macfuse.github.io/) with its kernel extension\nenabled in System Settings. Use an existing empty directory. Ctrl-C unmounts."
-const PlatformExample = "  mkdir -p ~/PKUNetDisk\n  pkudisk-fuse mount ~/PKUNetDisk\n  pkudisk-fuse mount ~/PKUNetDisk --account work --read-only\n  pkudisk-fuse mount ~/PKUNetDisk --root '/My library/Reports'"
-const PlatformPoint = "~/PKUNetDisk"
+const PlatformExample = "  mkdir -p ~/PKUDisk\n  pkudisk mount ~/PKUDisk\n  pkudisk mount ~/PKUDisk --account work --read-only\n  pkudisk mount ~/PKUDisk --root '/My library/Reports'"
+const PlatformPoint = "~/PKUDisk"
 
 func CheckSupport() error {
 	for _, utility := range []string{

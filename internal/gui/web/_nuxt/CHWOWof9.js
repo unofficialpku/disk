@@ -1,1 +1,0 @@
-import{c as e,o as t}from"./QsxFS--h.js";import{t as n}from"./CDsm8rrN.js";var r=t(async t=>{let r=n();await r.initialize();let i=t.path.replace(/\/+$/,``);if(i===`/mounts`&&(r.flags.isMobile||!r.flags.canMount)||i===`/recovery`&&(r.flags.isMobile||!r.flags.canBrowseLocalFS))return e(`/`)});export{r as default};

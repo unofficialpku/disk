@@ -12,9 +12,9 @@ import (
 	"time"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/auth"
+	"github.com/unofficialpku/disk/internal/vfs"
 )
 
 const tuiAccountLibrary = "gns://shared"

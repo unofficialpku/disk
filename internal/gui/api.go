@@ -12,9 +12,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/accounts"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
+	"github.com/unofficialpku/disk/internal/accounts"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/auth"
 )
 
 type apiError struct {

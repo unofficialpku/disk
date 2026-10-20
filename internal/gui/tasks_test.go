@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/transfer"
+	"github.com/unofficialpku/disk/internal/transfer"
 )
 
 func TestTaskSnapshotCoalescesAttemptsAndKeepsResponseActive(t *testing.T) {

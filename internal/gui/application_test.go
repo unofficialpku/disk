@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/accounts"
+	"github.com/unofficialpku/disk/internal/accounts"
 )
 
 func applicationServer(t *testing.T) (*businessFixture, *Application, *server, string) {

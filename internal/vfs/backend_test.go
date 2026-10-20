@@ -5,7 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare"
 	"io"
 	"strings"
 	"sync"

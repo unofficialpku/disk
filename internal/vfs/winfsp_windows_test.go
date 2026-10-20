@@ -18,8 +18,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/diagnostic"
 	"github.com/winfsp/cgofuse/fuse"
 	"golang.org/x/sys/windows"
 )
@@ -175,7 +175,7 @@ func mountWinFspTest(t *testing.T, adapter *WinFsp) string {
 	}()
 	select {
 	case ok := <-done:
-		if os.Getenv("PKUDISK_FUSE_REQUIRE_KERNEL") == "1" {
+		if os.Getenv("PKUDISK_REQUIRE_KERNEL") == "1" {
 			t.Fatalf("WinFsp mount ended before initialization: %v", ok)
 		}
 		t.Skip("WinFsp driver unavailable")

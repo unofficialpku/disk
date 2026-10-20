@@ -1,4 +1,4 @@
-module github.com/thezzisu/pkudisk-fuse
+module github.com/unofficialpku/disk
 
 go 1.26.9
 

@@ -17,7 +17,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/localfile"
 )
 
 const guiStartupFD = "PKUDISK_GUI_STARTUP_FD"
@@ -140,7 +140,7 @@ func startBackgroundGUI(ctx context.Context, output io.Writer) error {
 			<-exited
 			fmt.Fprintln(output, "Opened the interface in the existing GUI instance.")
 		}
-		fmt.Fprintln(output, "Stop: pkudisk-fuse gui stop")
+		fmt.Fprintln(output, "Stop: pkudisk gui stop")
 		return nil
 	case <-ctx.Done():
 		stop()
@@ -154,7 +154,7 @@ func startBackgroundGUI(ctx context.Context, output io.Writer) error {
 func desktopLogPath() (string, error) {
 	if runtime.GOOS == "linux" {
 		if state := os.Getenv("XDG_STATE_HOME"); filepath.IsAbs(state) {
-			return filepath.Join(state, "pkudisk-fuse", "logs", "desktop.log"), nil
+			return filepath.Join(state, "pkudisk", "logs", "desktop.log"), nil
 		}
 	}
 	homeDir, err := os.UserHomeDir()
@@ -162,7 +162,7 @@ func desktopLogPath() (string, error) {
 		return "", err
 	}
 	if runtime.GOOS == "darwin" {
-		return filepath.Join(homeDir, "Library", "Logs", "pkudisk-fuse", "desktop.log"), nil
+		return filepath.Join(homeDir, "Library", "Logs", "pkudisk", "desktop.log"), nil
 	}
-	return filepath.Join(homeDir, ".local", "state", "pkudisk-fuse", "logs", "desktop.log"), nil
+	return filepath.Join(homeDir, ".local", "state", "pkudisk", "logs", "desktop.log"), nil
 }

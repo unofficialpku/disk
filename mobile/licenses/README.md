@@ -13,5 +13,6 @@ Go and gomobile licenses, frontend dependency licenses, Gradle's exact resolved
 Android runtime dependency report, upstream Maven POMs (including inherited
 license metadata), and license/notice files found in the resolved JARs/AARs.
 `android/ATTRIBUTION.txt` records the upstream names, developers and license URLs
-declared in those POMs. The resulting directory is published as the APK's
-companion `pkudisk-fuse_<version>_android_licenses.zip` release asset.
+declared in those POMs. The resulting directory is bundled in the APK under
+`assets/licenses/`. Publish one Android APK and include its hash in the release's
+shared `checksums.txt`; do not publish a separate Android license archive.

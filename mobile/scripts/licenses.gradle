@@ -1,60 +1,60 @@
-// Release-only metadata export; no plugin or dependency enters the app build.
+// Export resolved dependency metadata and verbatim notices into APK assets.
 import groovy.xml.XmlSlurper
 
-gradle.projectsEvaluated {
-    def app = gradle.rootProject.project(':app')
-    app.tasks.register('exportRuntimeLicenses') {
-        doLast {
-            def output = new File(app.property('pkudiskLicenseDirectory').toString())
-            def artifacts = app.configurations.releaseRuntimeClasspath.resolvedConfiguration.resolvedArtifacts
-            def report = new StringBuilder('Resolved Android runtime libraries\n\n')
-            artifacts.sort { it.moduleVersion.id.toString() }.each { artifact ->
-                def id = artifact.moduleVersion.id
-                def directory = new File(output, "modules/${id.group}/${id.name}/${id.version}")
-                directory.mkdirs()
-                def coordinate = "${id.group}:${id.name}:${id.version}"
-                def metadata
-                def licenses = []
-                while (coordinate && !licenses) {
-                    def dependency = app.dependencies.create("${coordinate}@pom")
-                    def configuration = app.configurations.detachedConfiguration(dependency)
-                    configuration.transitive = false
-                    def pom = configuration.singleFile
-                    app.copy { from pom; into directory }
-                    def parsed = new XmlSlurper().parse(pom)
-                    if (!metadata) metadata = parsed
-                    licenses = parsed.licenses.license.collect { [name: it.name.text(), url: it.url.text()] }
-                    coordinate = parsed.parent.artifactId.text() ?
-                        "${parsed.parent.groupId.text()}:${parsed.parent.artifactId.text()}:${parsed.parent.version.text()}" : null
-                }
-                // Every current runtime dependency declares Apache-2.0. Fail
-                // instead of silently omitting a new, differently licensed dependency.
-                if (!licenses || licenses.any { !(it.url =~ /(?i)apache\.org\/licenses\/LICENSE-2\.0/) }) {
-                    throw new GradleException("Review the license text for ${id}: ${licenses}")
-                }
-                report.append("${id}\n")
-                    .append("  ${metadata.name.text()}\n")
-                    .append("  ${metadata.url.text()}\n")
-                    .append("  ${metadata.organization.name.text()} ${metadata.developers.developer.name*.text().join(', ')}\n")
-                licenses.each { report.append("  ${it.name}: ${it.url}\n") }
-                def copyNotices = { archive, destination ->
-                    app.copy {
-                        from app.zipTree(archive)
-                        into destination
-                        includeEmptyDirs = false
-                        include { entry -> entry.name ==~ /(?i)(LICENSE|NOTICE|COPYING|COPYRIGHT)(\..*)?/ }
-                    }
-                }
-                copyNotices(artifact.file, new File(directory, 'notices'))
-                if (artifact.file.name.endsWith('.aar')) {
-                    app.zipTree(artifact.file).matching { include '**/*.jar' }.files.each { jar ->
-                        copyNotices(jar, new File(directory, "notices/${jar.name}"))
-                    }
-                }
-                report.append('\n')
+def app = project
+app.tasks.register('exportRuntimeLicenses') {
+    doLast {
+        def output = app.rootProject.file('../build/licenses/android')
+        output.mkdirs()
+        app.delete(new File(output, 'modules'), new File(output, 'dependencies.txt'))
+        def artifacts = app.configurations.releaseRuntimeClasspath.resolvedConfiguration.resolvedArtifacts
+        def report = new StringBuilder('Resolved Android runtime libraries\n\n')
+        artifacts.sort { it.moduleVersion.id.toString() }.each { artifact ->
+            def id = artifact.moduleVersion.id
+            def directory = new File(output, "modules/${id.group}/${id.name}/${id.version}")
+            directory.mkdirs()
+            def coordinate = "${id.group}:${id.name}:${id.version}"
+            def metadata
+            def licenses = []
+            while (coordinate && !licenses) {
+                def dependency = app.dependencies.create("${coordinate}@pom")
+                def configuration = app.configurations.detachedConfiguration(dependency)
+                configuration.transitive = false
+                def pom = configuration.singleFile
+                app.copy { from pom; into directory }
+                def parsed = new XmlSlurper().parse(pom)
+                if (!metadata) metadata = parsed
+                licenses = parsed.licenses.license.collect { [name: it.name.text(), url: it.url.text()] }
+                coordinate = parsed.parent.artifactId.text() ?
+                    "${parsed.parent.groupId.text()}:${parsed.parent.artifactId.text()}:${parsed.parent.version.text()}" : null
             }
-            new File(output, 'ATTRIBUTION.txt').setText(report.toString(), 'UTF-8')
-            println "Recorded ${artifacts.size()} Android runtime libraries."
+            // Every current runtime dependency declares Apache-2.0. Fail
+            // instead of silently omitting a new, differently licensed dependency.
+            if (!licenses || licenses.any { !(it.url =~ /(?i)apache\.org\/licenses\/LICENSE-2\.0/) }) {
+                throw new GradleException("Review the license text for ${id}: ${licenses}")
+            }
+            report.append("${id}\n")
+                .append("  ${metadata.name.text()}\n")
+                .append("  ${metadata.url.text()}\n")
+                .append("  ${metadata.organization.name.text()} ${metadata.developers.developer.name*.text().join(', ')}\n")
+            licenses.each { report.append("  ${it.name}: ${it.url}\n") }
+            def copyNotices = { archive, destination ->
+                app.copy {
+                    from app.zipTree(archive)
+                    into destination
+                    includeEmptyDirs = false
+                    include { entry -> entry.name ==~ /(?i)(LICENSE|NOTICE|COPYING|COPYRIGHT)(\..*)?/ }
+                }
+            }
+            copyNotices(artifact.file, new File(directory, 'notices'))
+            if (artifact.file.name.endsWith('.aar')) {
+                app.zipTree(artifact.file).matching { include '**/*.jar' }.files.each { jar ->
+                    copyNotices(jar, new File(directory, "notices/${jar.name}"))
+                }
+            }
+            report.append('\n')
         }
+        new File(output, 'ATTRIBUTION.txt').setText(report.toString(), 'UTF-8')
+        println "Recorded ${artifacts.size()} Android runtime libraries."
     }
 }

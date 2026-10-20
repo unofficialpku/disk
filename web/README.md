@@ -1,4 +1,4 @@
-# PKU NetDisk frontend
+# PKUDisk frontend
 
 Nuxt 4.6.1, Nuxt UI 4.11.3 and Nuxt i18n 10.6.0, based on the official Nuxt UI
 starter. The starter's MIT license is in `licenses/`. The interface uses Nuxt
@@ -46,7 +46,7 @@ For integrated development, run `npm run dev` here, then start the Go applicatio
 from the repository root in another terminal:
 
 ```sh
-PKUDISK_GUI_DEV_PROXY=http://127.0.0.1:3000 go run ./cmd/pkudisk-fuse gui --foreground
+PKUDISK_GUI_DEV_PROXY=http://127.0.0.1:3000 go run ./cmd/pkudisk gui --foreground
 ```
 
 Use the browser window opened by Go. Assets and Vite's HMR WebSocket are proxied

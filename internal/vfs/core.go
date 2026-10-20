@@ -9,9 +9,9 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/localfile"
 	"hash/fnv"
 	"io"
 	"log"
@@ -172,7 +172,7 @@ func New(backend Backend, opts Options) (*FileSystem, error) {
 		opts.IOTimeout = 10 * time.Minute
 	}
 	if opts.Logger == nil {
-		opts.Logger = log.New(os.Stderr, "pkudisk-fuse: ", log.LstdFlags)
+		opts.Logger = log.New(os.Stderr, "pkudisk: ", log.LstdFlags)
 	}
 	if opts.CacheDir == "" {
 		return nil, errors.New("a private cache directory is required")
@@ -195,7 +195,7 @@ func New(backend Backend, opts Options) (*FileSystem, error) {
 		}
 		f.root = f.makeNode(*opts.Root)
 	} else {
-		f.root = f.makeNode(anyshare.Entry{Name: "PKU NetDisk", Dir: true, Size: -1})
+		f.root = f.makeNode(anyshare.Entry{Name: "PKUDisk", Dir: true, Size: -1})
 		f.root.synthetic = true
 	}
 	return f, nil
@@ -547,7 +547,7 @@ func RandomName() string {
 	if _, err := rand.Read(b[:]); err != nil {
 		panic(err)
 	}
-	return ".pkudisk-fuse-move-" + hex.EncodeToString(b[:])
+	return ".pkudisk-move-" + hex.EncodeToString(b[:])
 }
 
 // errno maps protocol and context failures once; driver adapters only translate

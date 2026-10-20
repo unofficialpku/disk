@@ -11,8 +11,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/accounts"
-	"github.com/thezzisu/pkudisk-fuse/internal/gui"
+	"github.com/unofficialpku/disk/internal/accounts"
+	"github.com/unofficialpku/disk/internal/gui"
 )
 
 // Bridge owns one in-process local service. Its public API uses only gomobile

@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/transfer"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/transfer"
 )
 
 // WithAccount binds operations without a document ID (recipient lookup, for

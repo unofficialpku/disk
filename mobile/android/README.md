@@ -1,12 +1,11 @@
-# PKUDisk App for Android
+# PKUDisk for Android
 
 This optional app hosts the existing Nuxt GUI in **Android System WebView**.
 A Service calls the [shared Go bridge](../README.md) through an AAR
 produced by `gomobile bind`. Go runs inside the app process as a JNI library;
 there is no packaged executable or child process. The UI stays inside the app
 and does not open or depend on the Chrome application. The launcher name is
-**PKUDisk App**, and the Android application ID is `su.zzi.pkudiskfuse`
-(reverse domain `zzi.su` plus the project name).
+**PKUDisk**, and the Android application ID is `su.zzi.pkudiskfuse`.
 
 WebView's standard `onShowFileChooser` delegates `<input type="file">` to the
 system document picker through AndroidX Activity Result. Standard HTTP
@@ -85,11 +84,9 @@ keys stay outside the repository. Supply `PKUDISK_ANDROID_KEYSTORE`,
 `PKUDISK_ANDROID_STORE_PASSWORD`, `PKUDISK_ANDROID_KEY_ALIAS`, and
 `PKUDISK_ANDROID_KEY_PASSWORD`, then run `./gradlew :app:assembleRelease`.
 Without those variables, Gradle produces an unsigned APK for downstream signing.
-Version 0.5.0 retains the certificate used by the local test builds so those
-installations can upgrade. Keep that private key backed up for future releases.
-
-The application ID is now `su.zzi.pkudiskfuse`. It installs separately from the
-previous experimental package; existing app data is not migrated automatically.
+Keep the signing certificate and private key backed up for future releases.
+A stable application ID and signing identity allow in-place updates that retain
+accounts and app-private data.
 
 The default APK includes arm64 phones and x86_64 emulators. Use
 `./gradlew :app:assembleDebug -Pabis=x86_64` to build just the emulator ABI.
@@ -98,12 +95,14 @@ Build on Linux/macOS or WSL. Gradle invokes the pinned gomobile/gobind tools fro
 installed gomobile version is required. Windows users can run the current shell
 build script in WSL.
 
-Published APKs include a companion
-`pkudisk-fuse_<version>_android_licenses.zip` release asset with the project,
-Go/gomobile, frontend and Android dependency license texts and notices. Generate
-it from the same checkout and toolchain with `sh ../scripts/licenses.sh`;
-the result is `../build/licenses/`. Android attribution comes from Gradle's
-resolved release runtime dependencies and their upstream Maven metadata.
+Published APKs include project, Go/gomobile, frontend and Android dependency
+license texts and notices under `assets/licenses/`. The build generates them
+with `../scripts/licenses.sh` from the same checkout and resolved toolchain;
+the intermediate directory is `../build/licenses/`. Android attribution comes
+from Gradle's resolved release runtime dependencies and upstream Maven metadata.
+Publish just `pkudisk_<version>_android.apk` for Android, with its hash in the
+release's single shared `checksums.txt`. No separate license archive, Android
+checksum file, symbols or metadata asset is needed.
 
 Launching the app opens the Chinese/English GUI in its WebView. Idle use has no
 persistent notification. Active tasks show native progress notifications;

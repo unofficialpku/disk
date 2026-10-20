@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
-	"github.com/thezzisu/pkudisk-fuse/internal/transfer"
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/localfile"
+	"github.com/unofficialpku/disk/internal/transfer"
+	"github.com/unofficialpku/disk/internal/vfs"
 )
 
 type jobInfo struct {

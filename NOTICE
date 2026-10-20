@@ -1,9 +1,9 @@
-pkudisk-fuse
+PKUDisk
 Copyright 2026 thezzisu
 
 Licensed under the Apache License, Version 2.0. See LICENSE.
 Third-party components retain their own copyrights and licenses. Binary
 release archives include their license and notice files in licenses/.
 
-This is an independent client for PKU NetDisk; it is not an official
+This is an independent client for Peking University NetDisk (AnyShare); it is not an official
 Peking University or AnyShare product.

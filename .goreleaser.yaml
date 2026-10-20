@@ -1,14 +1,14 @@
 version: 2
-project_name: pkudisk-fuse
+project_name: pkudisk
 
 before:
   hooks:
     - sh scripts/release-files.sh
 
 builds:
-  - id: pkudisk-fuse
-    main: ./cmd/pkudisk-fuse
-    binary: pkudisk-fuse
+  - id: pkudisk
+    main: ./cmd/pkudisk
+    binary: pkudisk
     env:
       - CGO_ENABLED=0
       - GOWORK=off

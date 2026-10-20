@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare"
 	"github.com/winfsp/cgofuse/fuse"
 	"golang.org/x/sys/windows"
 )
@@ -17,7 +17,7 @@ import (
 func photoNamespace(t *testing.T) (*WinFsp, *metadataProbe, []string) {
 	t.Helper()
 	f, b := metadataTest(t)
-	f.root = f.makeNode(anyshare.Entry{Name: "PKU NetDisk", Dir: true, Size: -1})
+	f.root = f.makeNode(anyshare.Entry{Name: "PKUDisk", Dir: true, Size: -1})
 	f.root.synthetic = true
 	dirs := []string{"/", "/" + b.roots[0].Name}
 	parent := b.roots[0]

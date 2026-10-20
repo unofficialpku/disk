@@ -11,9 +11,9 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/localfile"
+	"github.com/unofficialpku/disk/internal/vfs"
 )
 
 var ErrUnsupported = errors.New("filesystem mounting is unavailable on this platform")
@@ -34,7 +34,7 @@ func DefaultCache() string {
 	if err != nil {
 		return ""
 	}
-	return filepath.Join(dir, "pkudisk-fuse")
+	return filepath.Join(dir, "pkudisk")
 }
 
 func DefaultOptions() Options {

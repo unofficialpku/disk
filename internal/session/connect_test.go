@@ -16,8 +16,8 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/accounts"
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
+	"github.com/unofficialpku/disk/internal/accounts"
+	"github.com/unofficialpku/disk/internal/auth"
 )
 
 // Exercise the shared connector through the real IAAA/session protocol.

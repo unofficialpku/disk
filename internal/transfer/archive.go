@@ -12,8 +12,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/localfile"
 )
 
 func (s Service) downloadArchive(ctx context.Context, entry anyshare.Entry, local string, overwrite bool, observe Observer) (Result, error) {

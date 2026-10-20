@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare"
 )
 
 func (b *fixtureBackend) Mkdir(_ context.Context, parent, name string) (anyshare.Entry, error) {

@@ -1,10 +1,10 @@
-# pkudisk-fuse
+# PKUDisk
 
-`pkudisk-fuse` browses, uploads, downloads and mounts PKU NetDisk (AnyShare) on Linux, macOS and Windows. Linux/macOS mounts use FUSE; Windows mounts use WinFsp. The CLI and TUI work without a filesystem driver. It is written in Go and uses the same HTTPS API and object-storage flow as the official AnyShare 7.0.6 client. See [platform support](docs/platform-support.md) for driver requirements, paths and validation.
+`pkudisk` browses, uploads, downloads and mounts Peking University NetDisk (AnyShare) on Linux, macOS and Windows. Linux/macOS mounts use FUSE; Windows mounts use WinFsp. The CLI and TUI work without a filesystem driver. It is written in Go and uses the same HTTPS API and object-storage flow as the official AnyShare 7.0.6 client. See [platform support](docs/platform-support.md) for driver requirements, paths and validation.
 
-`pkudisk-fuse gui` opens a system tray and a Chinese/English browser interface in the same binary. Manage accounts, browse/search files, upload/download, mount drives, share files, manage public links, use the recycle bin and file history, and inspect retained writes. Only mounting needs a filesystem driver. See [desktop GUI](docs/gui.md) for launchers, browser file transfers and the security model.
+`pkudisk gui` opens a system tray and a Chinese/English browser interface in the same binary. Manage accounts, browse/search files, upload/download, mount drives, share files, manage public links, use the recycle bin and file history, and inspect retained writes. Only mounting needs a filesystem driver. See [desktop GUI](docs/gui.md) for launchers, browser file transfers and the security model.
 
-On Linux and macOS, `gui` detaches by default and prints `pkudisk-fuse gui stop` as the shutdown command; use `gui --foreground` for a terminal-attached session.
+On Linux and macOS, `gui` detaches by default and prints `pkudisk gui stop` as the shutdown command; use `gui --foreground` for a terminal-attached session.
 
 An optional [Android app](mobile/android/README.md) hosts the same GUI in an in-app
 WebView using a shared gomobile library. Mobile dependencies and build tools are
@@ -17,21 +17,21 @@ The login uses **PKU unified authentication (IAAA)**. The password is RSA encryp
 
 ## Install
 
-Download a binary archive for your platform from [GitHub Releases](https://github.com/thezzisu/pkudisk-fuse/releases/latest), verify it against the accompanying `checksums.txt`, and extract the executable to a directory on your `PATH`. `amd64` is Intel/AMD x86-64; `arm64` includes Apple Silicon and Windows on ARM. Linux/macOS archives use `.tar.gz`; Windows archives use `.zip`. These binaries do not require Go.
+Download a binary archive for your platform from [GitHub Releases](https://github.com/unofficialpku/disk/releases/latest), verify it against the accompanying `checksums.txt`, and extract the executable to a directory on your `PATH`. `amd64` is Intel/AMD x86-64; `arm64` includes Apple Silicon and Windows on ARM. Linux/macOS archives use `.tar.gz`; Windows archives use `.zip`. These binaries do not require Go.
 
 With Go 1.26.9 or newer, install the command with:
 
 ```sh
-go install github.com/thezzisu/pkudisk-fuse/cmd/pkudisk-fuse@latest
+go install github.com/unofficialpku/disk/cmd/pkudisk@latest
 ```
 
-Use a version such as `@v0.5.0` instead of `@latest` to select a release. Add `GOBIN` (normally `~/go/bin`, or `%USERPROFILE%\go\bin` on Windows) to your `PATH` if needed.
+Use a version such as `@v0.6.0` instead of `@latest` to select a release. Add `GOBIN` (normally `~/go/bin`, or `%USERPROFILE%\go\bin` on Windows) to your `PATH` if needed.
 
 ```sh
-pkudisk-fuse version
-pkudisk-fuse account add
-pkudisk-fuse ls
-pkudisk-fuse tui
+pkudisk version
+pkudisk account add
+pkudisk ls
+pkudisk tui
 ```
 
 Only `mount` needs a filesystem driver: FUSE on Linux, macFUSE on macOS or WinFsp on Windows. See [platform support](docs/platform-support.md) for installation and validation details. Archives also contain shell completion scripts in `completions/`.
@@ -51,7 +51,7 @@ The Nuxt GUI is checked in as static embedded assets, so Go builds and
 `make ui` with Node 24, then `make build`. `make ui-check` checks frontend types,
 lint and the embedded asset fingerprint. See [frontend development](web/README.md).
 
-The binary is `bin/pkudisk-fuse`. No real account credentials or private keys are
+The binary is `bin/pkudisk`. No real account credentials or private keys are
 checked in; automated tests use explicit local fixtures.
 
 The workspace contains two modules, so run Go tests in each:
@@ -61,11 +61,11 @@ go test -race ./...
 (cd mobile && go test -race ./...)
 ```
 
-`GOWORK=off go build -o bin/pkudisk-fuse ./cmd/pkudisk-fuse` checks the standalone CLI module.
+`GOWORK=off go build -o bin/pkudisk ./cmd/pkudisk` checks the standalone CLI module.
 Installing a published CLI version also resolves only the root module; Android
 and gomobile tools remain declared in `mobile/go.mod`.
 
-Without Make, build directly with `go build -trimpath -o pkudisk-fuse ./cmd/pkudisk-fuse`; on Windows use `-o pkudisk-fuse.exe`. Cross-builds for Linux/macOS/Windows amd64 and arm64 support `CGO_ENABLED=0`. Native Windows mounts require WinFsp to be installed separately.
+Without Make, build directly with `go build -trimpath -o pkudisk ./cmd/pkudisk`; on Windows use `-o pkudisk.exe`. Cross-builds for Linux/macOS/Windows amd64 and arm64 support `CGO_ENABLED=0`. Native Windows mounts require WinFsp to be installed separately.
 
 For maintainers, [releasing](docs/releasing.md) describes the tagged CI workflow and local packaging rehearsal.
 
@@ -75,17 +75,17 @@ The CLI uses Cobra; text listings use Lip Gloss tables to align Chinese names,
 emoji and numeric columns by terminal display width. Every command includes its purpose, argument meanings, defaults, behavior, and examples in its help. Flags can appear before or after arguments. Use `--` before a file name beginning with a dash.
 
 ```sh
-bin/pkudisk-fuse --help
-bin/pkudisk-fuse help recover
-bin/pkudisk-fuse help account add
-bin/pkudisk-fuse download --help
+bin/pkudisk --help
+bin/pkudisk help recover
+bin/pkudisk help account add
+bin/pkudisk download --help
 ```
 
 Help and shell completion work without a saved account or network connection. Completion scripts are available for Bash, Zsh, Fish, and PowerShell:
 
 ```sh
-source <(bin/pkudisk-fuse completion bash)
-bin/pkudisk-fuse completion zsh > ~/.zsh/completions/_pkudisk-fuse
+source <(bin/pkudisk completion bash)
+bin/pkudisk completion zsh > ~/.zsh/completions/_pkudisk
 ```
 
 Sizes use readable IEC units by default (for example, `12 GiB`). Use
@@ -109,14 +109,14 @@ aliases.
 the wildcard `*` has no special meaning.
 
 ```sh
-bin/pkudisk-fuse ls -a work
-bin/pkudisk-fuse ls -b -a work
-bin/pkudisk-fuse quota -b -a work
-bin/pkudisk-fuse download '/My library/report.pdf' ./report.pdf -f -t 30m
-bin/pkudisk-fuse delete '/My library/old-report.pdf'
-bin/pkudisk-fuse recycle ls
-bin/pkudisk-fuse revision ls '/My library/report.pdf'
-bin/pkudisk-fuse upload ./report.pdf '/My library/report.pdf' --fast
+bin/pkudisk ls -a work
+bin/pkudisk ls -b -a work
+bin/pkudisk quota -b -a work
+bin/pkudisk download '/My library/report.pdf' ./report.pdf -f -t 30m
+bin/pkudisk delete '/My library/old-report.pdf'
+bin/pkudisk recycle ls
+bin/pkudisk revision ls '/My library/report.pdf'
+bin/pkudisk upload ./report.pdf '/My library/report.pdf' --fast
 ```
 
 Exit codes are `0` for success, `1` for an execution failure, and `2` for invalid commands, arguments, or flags. Results and requested help go to stdout; account announcements, errors, and CLI transfer progress go to stderr. `--json` provides JSON arrays for `ls`, `account ls`, and `recover`, including `[]` for empty results.
@@ -127,18 +127,18 @@ An interactive mount prompts for the campus username and hides the password inpu
 
 ```sh
 mkdir -m 700 ~/mnt/pkudisk
-bin/pkudisk-fuse mount ~/mnt/pkudisk
+bin/pkudisk mount ~/mnt/pkudisk
 ```
 
-On Windows, after installing WinFsp, use an unused drive letter: `pkudisk-fuse.exe mount P:`. `pkudisk-fuse account add` and `pkudisk-fuse tui` work on each platform without a mount driver.
+On Windows, after installing WinFsp, use an unused drive letter: `pkudisk.exe mount P:`. `pkudisk account add` and `pkudisk tui` work on each platform without a mount driver.
 
 For a non-interactive command, use an owner-only password file. The file must be a regular file owned by the current user with mode `0600`:
 
 ```sh
 umask 077
-printf '%s\n' 'YOUR-PASSWORD' > ~/.config/pkudisk-fuse/password
-bin/pkudisk-fuse mount --username YOUR-CAMPUS-ID \
-  --password-file ~/.config/pkudisk-fuse/password ~/mnt/pkudisk
+printf '%s\n' 'YOUR-PASSWORD' > ~/.config/pkudisk/password
+bin/pkudisk mount --username YOUR-CAMPUS-ID \
+  --password-file ~/.config/pkudisk/password ~/mnt/pkudisk
 ```
 
 `--password-stdin` is also available. A JSON credential file can be supplied with `--credentials-file`; it must be an owner-only `0600` file. Run `account add --help` for its format. The first successful login is saved under the campus username and becomes the default account. Use `--no-save` for a one-off login and `--non-interactive` to fail instead of prompting when credentials or required verification are missing.
@@ -146,10 +146,10 @@ bin/pkudisk-fuse mount --username YOUR-CAMPUS-ID \
 Use `account` to add a login or manage saved accounts:
 
 ```sh
-bin/pkudisk-fuse account ls
-bin/pkudisk-fuse account add --username YOUR-CAMPUS-ID --password-file ~/.config/pkudisk-fuse/password work
-bin/pkudisk-fuse account default work
-bin/pkudisk-fuse account remove work
+bin/pkudisk account ls
+bin/pkudisk account add --username YOUR-CAMPUS-ID --password-file ~/.config/pkudisk/password work
+bin/pkudisk account default work
+bin/pkudisk account remove work
 ```
 
 `account` without a subcommand shows help. Account labels and transfer destinations use positional arguments. Commands have no compatibility aliases.
@@ -167,9 +167,9 @@ HTTP clients use Go's default TLS and HTTP protocol negotiation. Transport failu
 By default the mount root contains every accessible document library. Use `ls` without a path (or `ls /`) to inspect the libraries, and pass a library/folder path to `ls` for its contents:
 
 ```sh
-bin/pkudisk-fuse ls --username YOUR-CAMPUS-ID --password-file ~/.config/pkudisk-fuse/password
-bin/pkudisk-fuse ls --username YOUR-CAMPUS-ID --password-file ~/.config/pkudisk-fuse/password '/My library/Reports'
-bin/pkudisk-fuse ls '/My library/Reports'
+bin/pkudisk ls --username YOUR-CAMPUS-ID --password-file ~/.config/pkudisk/password
+bin/pkudisk ls --username YOUR-CAMPUS-ID --password-file ~/.config/pkudisk/password '/My library/Reports'
+bin/pkudisk ls '/My library/Reports'
 ```
 
 Library listings show human-readable `USED` and `RW`/`RO` access. Writable
@@ -182,8 +182,8 @@ the original entry schema, including the remote directory size sentinel `-1`.
 `tui` opens a Bubble Tea terminal browser showing the selected account and remote path. The remote list scrolls, paginates, and supports fuzzy filtering with `/`. Use `j`/`k` or the arrows to move, Enter to open a folder, Backspace to go up, `u` to pick a local file or directory to upload, `d` to download the selected file or folder, `a` to save a folder as a server ZIP, `v` to download a folder through one ZIP and extract locally, `x` to extract an existing remote archive, `r` to refresh, and `?` for keyboard help. In the upload picker, Enter opens a directory, Space selects a file or directory, and `p` lets you type a local path. `~` is expanded in local path inputs.
 
 ```sh
-bin/pkudisk-fuse tui
-bin/pkudisk-fuse tui --all-accounts
+bin/pkudisk tui
+bin/pkudisk tui --all-accounts
 ```
 
 With `--all-accounts`, the TUI root contains saved account directories. Entering
@@ -206,20 +206,20 @@ Directory reads and transfers run asynchronously so the screen remains responsiv
 Upload and download without mounting the filesystem. Remote paths are library-relative (`/Library/folder/file`) or an allowed `gns://...` ID:
 
 ```sh
-bin/pkudisk-fuse upload ./report.pdf '/My library/Reports/report.pdf'
-bin/pkudisk-fuse download --overwrite '/My library/Reports/report.pdf' ./report.pdf
-bin/pkudisk-fuse upload ./Photos '/My library/'
-bin/pkudisk-fuse download '/My library/Photos' ~/Downloads/
-bin/pkudisk-fuse download '/My library/Photos' ./photos.zip --archive
-bin/pkudisk-fuse download '/My library/Photos' ./photos --via-archive
-bin/pkudisk-fuse extract '/My library/photos.zip' '/My library/Photos-new'
-bin/pkudisk-fuse quota
-bin/pkudisk-fuse search report --in '/My library/Reports'
-bin/pkudisk-fuse copy '/My library/report.pdf' '/My library/Archive'
-bin/pkudisk-fuse delete '/My library/old-report.pdf'
-bin/pkudisk-fuse recycle ls
-bin/pkudisk-fuse revision ls '/My library/report.pdf'
-bin/pkudisk-fuse upload ./report.pdf '/My library/report.pdf' --fast
+bin/pkudisk upload ./report.pdf '/My library/Reports/report.pdf'
+bin/pkudisk download --overwrite '/My library/Reports/report.pdf' ./report.pdf
+bin/pkudisk upload ./Photos '/My library/'
+bin/pkudisk download '/My library/Photos' ~/Downloads/
+bin/pkudisk download '/My library/Photos' ./photos.zip --archive
+bin/pkudisk download '/My library/Photos' ./photos --via-archive
+bin/pkudisk extract '/My library/photos.zip' '/My library/Photos-new'
+bin/pkudisk quota
+bin/pkudisk search report --in '/My library/Reports'
+bin/pkudisk copy '/My library/report.pdf' '/My library/Archive'
+bin/pkudisk delete '/My library/old-report.pdf'
+bin/pkudisk recycle ls
+bin/pkudisk revision ls '/My library/report.pdf'
+bin/pkudisk upload ./report.pdf '/My library/report.pdf' --fast
 ```
 
 Directories transfer recursively, preserving nested and empty folders. A remote folder destination uses the local basename; a local directory destination uses the remote basename. A new destination path can rename the result, and its parent must already exist. Omitting a download destination saves the remote name in the current directory, including for a `gns://` selector. Uploads reject symlinks and special files.
@@ -247,10 +247,10 @@ and library policy determine which versions are available.
 The `--root` option accepts either the displayed path or an AnyShare `gns://...` object ID. A folder can therefore be mounted directly:
 
 ```sh
-bin/pkudisk-fuse mount \
+bin/pkudisk mount \
   --root '/My library/Reports' \
   --username YOUR-CAMPUS-ID \
-  --password-file ~/.config/pkudisk-fuse/password \
+  --password-file ~/.config/pkudisk/password \
   ~/mnt/pkudisk
 ```
 
@@ -276,20 +276,20 @@ A quota or permission failure returns an error instead of stale writable space.
 
 ```sh
 # An internal navigation link requires login and existing file permissions.
-bin/pkudisk-fuse share link '/My library/report.pdf'
+bin/pkudisk share link '/My library/report.pdf'
 
 # Find the recipient's AnyShare ID, then grant access explicitly.
-bin/pkudisk-fuse share search 'Recipient name'
-bin/pkudisk-fuse share add '/My library/report.pdf' \
+bin/pkudisk share search 'Recipient name'
+bin/pkudisk share add '/My library/report.pdf' \
   --user USER-ID --permission preview,download --expires-in 168h
-bin/pkudisk-fuse share ls '/My library/report.pdf'
-bin/pkudisk-fuse share remove '/My library/report.pdf' --user USER-ID
+bin/pkudisk share ls '/My library/report.pdf'
+bin/pkudisk share remove '/My library/report.pdf' --user USER-ID
 
 # External links work without an AnyShare account.
-bin/pkudisk-fuse link add '/My library/report.pdf' \
+bin/pkudisk link add '/My library/report.pdf' \
   --code Abcd1234 --expires-in 168h
-bin/pkudisk-fuse link ls '/My library/report.pdf'
-bin/pkudisk-fuse link remove LINK-ID
+bin/pkudisk link ls '/My library/report.pdf'
+bin/pkudisk link remove LINK-ID
 ```
 
 `share add/remove` accepts repeated or comma-separated `--user` and
@@ -335,7 +335,7 @@ A user service with `Restart=on-failure` can keep a mount alive across the curre
 The optional live test uses a separate session and reads remote data only:
 
 ```sh
-PKUDISK_TEST_CREDENTIALS="$HOME/.config/pkudisk-fuse/credentials.json" \
+PKUDISK_TEST_CREDENTIALS="$HOME/.config/pkudisk/credentials.json" \
   go test -run '^TestLiveSessionRefresh$' -v ./internal/auth
 ```
 
@@ -343,7 +343,7 @@ For live CLI transfer and utility acceptance with a saved account:
 
 ```sh
 PKUDISK_TEST_LIVE=1 go test -count=1 -timeout=7m \
-  -run '^TestLiveTransfers$' -v ./cmd/pkudisk-fuse
+  -run '^TestLiveTransfers$' -v ./cmd/pkudisk
 ```
 
 `PKUDISK_TEST_ACCOUNT` selects a saved account. `PKUDISK_TEST_BINARY` optionally
@@ -359,7 +359,7 @@ server:
 
 ```sh
 PKUDISK_TEST_LIVE_SHARING=1 go test -count=1 -timeout=4m \
-  -run '^TestLiveSharing$' -v ./cmd/pkudisk-fuse
+  -run '^TestLiveSharing$' -v ./cmd/pkudisk
 ```
 
 It shares only a new personal-library fixture with the second saved account,
@@ -371,13 +371,13 @@ approval responses, link pagination, scripts, help and TUI review/cancellation.
 ## Mount multiple accounts
 
 ```sh
-mkdir -p ~/PKUNetDisk
-bin/pkudisk-fuse mount ~/PKUNetDisk --all-accounts
-# Windows: pkudisk-fuse.exe mount P: --all-accounts
+mkdir -p ~/PKUDisk
+bin/pkudisk mount ~/PKUDisk --all-accounts
+# Windows: pkudisk.exe mount P: --all-accounts
 ```
 
 The first level contains each saved account name, followed by that account's
-accessible libraries. For example, `~/PKUNetDisk/work/My library/Reports`.
+accessible libraries. For example, `~/PKUDisk/work/My library/Reports`.
 Account directories are virtual and read-only; files inside use the owning
 account's permissions and session. Each account has separate inode and cache
 identities even when several accounts can see the same shared library.
@@ -422,8 +422,8 @@ Size flags accept bytes, decimal units such as `5MB`, and binary units such as `
 For fewer round trips on a fast connection, or smaller fetches on a slower connection:
 
 ```sh
-pkudisk-fuse mount ~/PKUNetDisk --read-whole-file 32MiB --read-ahead 64MiB
-pkudisk-fuse mount ~/PKUNetDisk --read-whole-file 0 --read-block-size 1MiB --read-ahead 0 --read-concurrency 2
+pkudisk mount ~/PKUDisk --read-whole-file 32MiB --read-ahead 64MiB
+pkudisk mount ~/PKUDisk --read-whole-file 0 --read-block-size 1MiB --read-ahead 0 --read-concurrency 2
 ```
 
 On Windows use an unused drive letter, such as `P:`, as the mountpoint. `mount --help` explains the policy and includes these examples without requiring an account or a network connection.
@@ -433,13 +433,13 @@ Windows directory handles load contents only when the application enumerates the
 For a slow or frozen application, capture mount decisions and requests in a log stored in a local folder:
 
 ```powershell
-.\pkudisk-fuse.exe mount P: --verbose 2> mount.log
+.\pkudisk.exe mount P: --verbose 2> mount.log
 ```
 
 For Windows PowerShell 5, redirect through `cmd.exe` to preserve native UTF-8 text without PowerShell's error-record wrapping and UTF-16 conversion:
 
 ```powershell
-cmd.exe /d /c ".\pkudisk-fuse.exe mount P: --verbose 2>mount.log"
+cmd.exe /d /c ".\pkudisk.exe mount P: --verbose 2>mount.log"
 ```
 
 On Linux/macOS use an empty directory as the mountpoint. `--verbose` logs to stderr with timestamps and numbered `START`/`END` operations. Child operations identify their parent; an unmatched `START` is still pending. A fetch can remain pending after its header read returns while its suffix continues filling; the log marks this as `requested bytes ready`. The log shows file paths/handles, metadata refreshes, file/cache lock waits, whole-file versus sequential/range planning, cache hits/misses, shared fetches, queue admission, eviction, retention, uploads and unmount. HTTP entries show endpoint hosts, trusted byte ranges, connection reuse/setup, response status, first body bytes and completion timing. Waiting for response headers is distinguished from waiting for the body.
@@ -453,7 +453,7 @@ New files, overwrites, random writes, truncation, append, mkdir, unlink, rmdir, 
 Writes are held in a private `0700` cache and published on `fsync`/close. A failed upload is never acknowledged as successful. The journal and cached data remain available under `--cache-dir`; inspect them with:
 
 ```sh
-bin/pkudisk-fuse recover --cache-dir ~/.cache/pkudisk-fuse
+bin/pkudisk recover --cache-dir ~/.cache/pkudisk
 ```
 
 `recover` lists retained local contents and their recorded remote names/IDs, sizes, revisions, and update times. It runs offline and does not upload, delete, or automatically restore anything. Stop the affected mount, copy needed cached files to a permanent location, then use `upload` with a chosen destination. `recover --help` includes a complete example; `recover --json` returns `[]` when no records exist.

@@ -8,12 +8,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/accounts"
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
-	"github.com/thezzisu/pkudisk-fuse/internal/auth"
-	"github.com/thezzisu/pkudisk-fuse/internal/diagnostic"
-	"github.com/thezzisu/pkudisk-fuse/internal/session"
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/accounts"
+	"github.com/unofficialpku/disk/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/auth"
+	"github.com/unofficialpku/disk/internal/diagnostic"
+	"github.com/unofficialpku/disk/internal/session"
+	"github.com/unofficialpku/disk/internal/vfs"
 )
 
 type Source struct {
@@ -45,7 +45,7 @@ func PrepareSource(ctx context.Context, store *accounts.Store, account string, o
 			return nil, fmt.Errorf("load saved accounts: %w", err)
 		}
 		if len(config.Accounts) == 0 {
-			return nil, errors.New("no saved accounts; run 'pkudisk-fuse account add' first")
+			return nil, errors.New("no saved accounts; run 'pkudisk account add' first")
 		}
 		names = nil
 		for _, account := range config.Accounts {

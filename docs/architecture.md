@@ -17,7 +17,7 @@ Published CLI installs and `GOWORK=off` builds use only root dependencies.
 | `internal/gui` | Authenticated loopback HTTP, task queue, local filesystem browsing, embedded assets, background desktop launch and development proxy |
 | `internal/tui`, `internal/display` | Terminal I/O, reusable asynchronous operations, forms/confirmation, and consistent table/JSON rendering |
 | `internal/desktop` | Desktop tray integration; the only native GUI in desktop Go code |
-| `cmd/pkudisk-fuse` | Cobra commands and terminal input/output adapters |
+| `cmd/pkudisk` | Cobra commands and terminal input/output adapters |
 | `web/` | Nuxt UI browser surface, Chinese/English messages and visual local path picker |
 | `mobile/bridge`, `mobile/android` | In-process runtime lifetime and the Android WebView host |
 
@@ -50,7 +50,7 @@ Run each module's tests explicitly; `./...` stops at nested module boundaries:
 ```sh
 go test -race ./...
 (cd mobile && go test -race ./...)
-GOWORK=off go build -o bin/pkudisk-fuse ./cmd/pkudisk-fuse
+GOWORK=off go build -o bin/pkudisk ./cmd/pkudisk
 npm --prefix web run lint
 npm --prefix web run typecheck
 make ui

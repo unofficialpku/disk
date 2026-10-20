@@ -10,15 +10,15 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
-	"github.com/thezzisu/pkudisk-fuse/internal/vfs"
+	"github.com/unofficialpku/disk/internal/localfile"
+	"github.com/unofficialpku/disk/internal/vfs"
 	"github.com/winfsp/cgofuse/fuse"
 	"golang.org/x/sys/windows"
 	"golang.org/x/sys/windows/registry"
 )
 
 const PlatformHelp = "Windows requires WinFsp (https://winfsp.dev/rel/). Choose an unused drive\nletter such as P:, or an empty local directory. Ctrl-C unmounts."
-const PlatformExample = "  pkudisk-fuse mount P:\n  pkudisk-fuse mount P: --account work --read-only\n  pkudisk-fuse mount P: --root '/My library/Reports'"
+const PlatformExample = "  pkudisk mount P:\n  pkudisk mount P: --account work --read-only\n  pkudisk mount P: --root '/My library/Reports'"
 const PlatformPoint = "P:"
 
 func CheckSupport() error {
@@ -106,7 +106,7 @@ func Run(ctx context.Context, source *Source, opts Options, output io.Writer) (r
 	host.SetCapOpenTrunc(true)
 	host.SetCapReaddirPlus(true)
 	host.SetUseIno(true)
-	arguments := append(vfs.WinFspMountOptions(), "-o", fmt.Sprintf("fsname=PKUNetDisk,volname=PKU NetDisk,attr_timeout=%g,entry_timeout=%g", opts.TTL.Seconds(), opts.TTL.Seconds()))
+	arguments := append(vfs.WinFspMountOptions(), "-o", fmt.Sprintf("fsname=PKUDisk,volname=PKUDisk,attr_timeout=%g,entry_timeout=%g", opts.TTL.Seconds(), opts.TTL.Seconds()))
 	if opts.ReadOnly {
 		arguments = append(arguments, "-o", "ro")
 	}
@@ -131,7 +131,7 @@ func Run(ctx context.Context, source *Source, opts Options, output io.Writer) (r
 		return err
 	case <-adapter.Ready:
 	}
-	fmt.Fprintf(output, "Mounted PKU NetDisk at %s; cache %s. Ctrl-C unmounts.\n", point, core.CachePath())
+	fmt.Fprintf(output, "Mounted PKUDisk at %s; cache %s. Ctrl-C unmounts.\n", point, core.CachePath())
 	if opts.Ready != nil {
 		opts.Ready()
 	}

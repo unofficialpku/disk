@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     head: {
-      title: 'PKU NetDisk',
+      title: 'PKUDisk',
       link: [
         { rel: 'icon', type: 'image/png', href: '/icon.png' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }

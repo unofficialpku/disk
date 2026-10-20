@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/anyshare"
+	"github.com/unofficialpku/disk/internal/anyshare"
 )
 
 func TestSharedErrorCodeNormalizesWrappedFailures(t *testing.T) {

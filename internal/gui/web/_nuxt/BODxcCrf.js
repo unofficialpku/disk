@@ -1,0 +1,1 @@
+import{c as e,o as t}from"./C9LUvqzx.js";import{t as n}from"./BK5UMQdJ.js";var r=t(async t=>{let r=n();await r.initialize();let i=t.path.replace(/\/+$/,``);if(i===`/mounts`&&(r.flags.isMobile||!r.flags.canMount)||i===`/recovery`&&(r.flags.isMobile||!r.flags.canBrowseLocalFS))return e(`/`)});export{r as default};

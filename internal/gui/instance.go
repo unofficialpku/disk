@@ -15,7 +15,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/thezzisu/pkudisk-fuse/internal/localfile"
+	"github.com/unofficialpku/disk/internal/localfile"
 )
 
 type instanceInfo struct {
